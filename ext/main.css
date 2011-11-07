@@ -1,0 +1,63 @@
+body {
+    font-family:Consolas; 
+    margin: 0px;
+    padding: 0px;
+}
+
+table.diff {
+    border:medium; 
+    width:100%;
+    background-color: #f6f7eb;
+    color: #022c80;
+}
+
+.diff_header {
+    background-color:#d1d9c1;
+}
+
+td.diff_header {
+    text-align:right;
+    color: #000;
+}
+
+.diff_next {
+    background-color:#cc9;
+    text-align:center;
+}
+.diff_next a {
+    text-decoration: none;
+    color: #000;
+}
+.diff_next a:hover {
+    text-decoration: none;
+    color: #000;
+}
+.diff_next a:visited {
+    text-decoration: none;
+    color: #000;
+}
+
+.diff_add {
+    background-color:#aaffaa;
+}
+
+.diff_chg {
+    background-color:#ffff88;
+}
+
+.diff_sub {
+    background-color:#ff5555;
+}
+
+span.searchword { 
+    background-color:yellow; 
+    color:red;
+}
+
+span.keyword {
+    color:blue;
+}
+
+.title {
+    font-weight: bold;
+}
