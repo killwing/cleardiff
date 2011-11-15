@@ -11,7 +11,7 @@ class ClearDiff:
         ctargs = shlex.split('cleartool catcs')
         pipe = Popen(ctargs, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         (out, err) = pipe.communicate()
-        g = re.search(r'-mkbranch (\w+)', out)
+        g = re.search(r'-mkbranch ([\w\.\_]+)', out)
         if g == None:
             return
 
@@ -37,7 +37,7 @@ class ClearDiff:
 <head>
     <title>%s</title>
     <link type="text/css" href="ext/main.css" rel="stylesheet" />
-    <script type="text/javascript" src="ext/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="ext/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="ext/searchhi_slim.js"></script>
     <script type="text/javascript" src="ext/base.js"></script>
     <script type="text/javascript">
@@ -74,21 +74,27 @@ class ClearDiff:
         (out, err) = pipe.communicate()
 
         files = out.split('\n')
-        self.doDiff(files, '0', 'LATEST')
+        self.doDiff(files, '0', 'LATEST', False)
 
     def diffFiles(self, files, from_ver, to_ver):
-        ctargs = shlex.split('cleartool lshistory -last -short ' + ' '.join(files))
+        ctargs = shlex.split('cleartool ls -short ' + ' '.join(files))
         pipe = Popen(ctargs, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         (out, err) = pipe.communicate()
 
         files = out.split('\n')
-        self.doDiff(files, from_ver, to_ver)
+        self.doDiff(files, from_ver, to_ver, True)
 
-    def doDiff(self, files, from_ver, to_ver):
+    def doDiff(self, files, from_ver, to_ver, trimVer):
         print 'start diff...'
         htmlDiff = difflib.HtmlDiff(4, self.wrapcol)
         for file in files:
-            sp = file.strip().find('@@')
+            file = file.strip()
+            if trimVer:
+                sp = file.rfind('/')
+                if sp != -1:
+                    file = file[0:sp]
+
+            sp = file.find('@@')
             if sp == -1:
                 #print 'ignore: '+file
                 continue
@@ -102,7 +108,10 @@ class ClearDiff:
             print 'diff file: '+filename
             
             fromfile = file + '/' + from_ver
-            tofile = file + '/' + to_ver
+            if to_ver == '':
+                tofile = filename
+            else:
+                tofile = file + '/' + to_ver
             fromVersion = fileversion + '/' + from_ver
             toVersion = fileversion + '/' + to_ver
 
@@ -125,8 +134,8 @@ def main():
     parser = optparse.OptionParser(usage)
     #parser.add_option('-k', action='store_true', default=False, help='Highlight C++ keywords')
     parser.add_option('-b', action='store_true', default=False, help='diff with branch of current view (from 0 to LATEST)')
-    parser.add_option('-f', '--from', type='string', default='0', help='from version to diff with files (default 0)')
-    parser.add_option('-t', '--to', type='string', default='LATEST', help='to version to diff with files (default LATEST)')
+    parser.add_option('-f', '--from', type='string', default='LATEST', help='from version to diff with files (default LATEST)')
+    parser.add_option('-t', '--to', type='string', default='', help='to version to diff with files (default CURRENT)')
     parser.add_option('-w', '--wrapcolumn', type='int', default=None, help='column number where lines are broken and wrapped (default None)')
     (options, args) = parser.parse_args()
 

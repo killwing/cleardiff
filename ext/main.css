@@ -7,21 +7,22 @@ body {
 table.diff {
     border:medium; 
     width:100%;
-    background-color: #f6f7eb;
-    color: #022c80;
+    background-color: #f7f7f7;
+    color: #000;
+    text-shadow: 1px 1px 1px rgba(33,33,33,0.3)
 }
 
 .diff_header {
-    background-color:#d1d9c1;
+    background-color:#ccc;
 }
 
 td.diff_header {
     text-align:right;
-    color: #000;
+    color: #8f0206;
 }
 
 .diff_next {
-    background-color:#cc9;
+    background-color:#aaa;
     text-align:center;
 }
 .diff_next a {
