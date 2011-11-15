@@ -133,7 +133,7 @@ def main():
     usage = "usage: %prog [options] [files]"
     parser = optparse.OptionParser(usage)
     #parser.add_option('-k', action='store_true', default=False, help='Highlight C++ keywords')
-    parser.add_option('-b', action='store_true', default=False, help='diff with branch of current view (from 0 to LATEST)')
+    parser.add_option('-b', action='store_true', default=False, help='diff with branch of current view in current directory (from 0 to LATEST)')
     parser.add_option('-f', '--from', type='string', default='LATEST', help='from version to diff with files (default LATEST)')
     parser.add_option('-t', '--to', type='string', default='', help='to version to diff with files (default CURRENT)')
     parser.add_option('-w', '--wrapcolumn', type='int', default=None, help='column number where lines are broken and wrapped (default None)')

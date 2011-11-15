@@ -1,12 +1,11 @@
-a diff to html tool for clearcase
-
 Usage: cleardiff.py [options] [files]
 
 Options:
   -h, --help            show this help message and exit
-  -b                    diff with branch of current view (from 0 to LATEST)
-  -f FROM, --from=FROM  from version to diff with files (default 0)
-  -t TO, --to=TO        to version to diff with files (default LATEST)
+  -b                    diff with branch of current view in current directory
+                        (from 0 to LATEST)
+  -f FROM, --from=FROM  from version to diff with files (default LATEST)
+  -t TO, --to=TO        to version to diff with files (default CURRENT)
   -w WRAPCOLUMN, --wrapcolumn=WRAPCOLUMN
                         column number where lines are broken and wrapped
                         (default None)
